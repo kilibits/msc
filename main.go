@@ -1,15 +1,18 @@
 package main
 
 import (
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/context"
+	api "../Music/Controllers"
+
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	app := iris.New()
-	app.Handle("GET", "/", func(ctx context.Context) {
-		ctx.WriteString("hello world")
-	})
+	router := mux.NewRouter()
+	router.HandleFunc("/song/{song_id}", api.GetSong).Methods("GET")
+	router.HandleFunc("/playlist/playlist_id", api.GetPlaylist).Methods("GET")
+	router.HandleFunc("/song", api.PostSong).Methods("POST")
 
-	app.Run(iris.Addr(":8080"))
+	http.ListenAndServe(":8080", router)
 }
