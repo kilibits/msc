@@ -6,7 +6,7 @@ import (
 
 //GetSong retrieve a song by id
 func GetSong(res http.ResponseWriter, req *http.Request) {
-	//get song
+	RetrieveSong("song-id")
 }
 
 //GetPlaylist retrieve playlist by id
