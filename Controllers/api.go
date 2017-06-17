@@ -1,7 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -9,7 +11,7 @@ import (
 //GetSong retrieve a song by id
 func GetSong(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
-	songID := vars["songId"]
+	songID := vars["song_id"]
 	streamingURL := RetrieveSong(songID)
 
 	if streamingURL == nil {
@@ -23,10 +25,21 @@ func GetSong(res http.ResponseWriter, req *http.Request) {
 
 //GetPlaylist retrieve playlist by id
 func GetPlaylist(res http.ResponseWriter, req *http.Request) {
-	//get playlist
+
 }
 
 //PostSong post a song
 func PostSong(res http.ResponseWriter, req *http.Request) {
-	//save song
+	vars := mux.Vars(req)
+	filePath := vars["file_path"]
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer file.Close()
+
+	UploadSong(file)
 }

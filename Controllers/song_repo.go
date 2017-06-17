@@ -1,8 +1,11 @@
 package api
 
 import (
-	"time"
+	"fmt"
 	"net/url"
+	"os"
+	"time"
+
 	common "../../Music/Common"
 )
 
@@ -29,4 +32,25 @@ func RetrieveSong(id string) *url.URL {
 	}
 
 	return nil
+}
+
+func UploadSong(file *os.File) bool {
+	client := common.GetSharedClient()
+	bucketName := common.GetBucketName()
+
+	found, err := client.BucketExists(bucketName)
+
+	if err != nil {
+		return false
+	}
+
+	if found {
+
+		_, err := client.PutObject(bucketName, "object_name", file, "application/octet-stream")
+		if err != nil {
+			fmt.Println(err)
+			return false
+		}
+	}
+	return true
 }

@@ -1,9 +1,10 @@
 package main
 
 import (
+	"net/http"
+
 	api "../Music/Controllers"
 	mux "github.com/gorilla/mux"
-	"net/http"
 )
 
 func main() {
