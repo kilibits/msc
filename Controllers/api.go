@@ -23,8 +23,20 @@ func GetSong(res http.ResponseWriter, req *http.Request) {
 	res.Write([]byte(streamingURL.String()))
 }
 
-//GetPlaylist retrieve playlist by id
-func GetPlaylist(res http.ResponseWriter, req *http.Request) {
+//GetSongList retrieve playlist by id
+func GetSongsList(res http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	prefix := vars["prefix"]
+
+	listJSON := RetrieveSongList(prefix)
+
+	if listJSON == nil {
+		http.Error(res, "Error message", http.StatusInternalServerError)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	res.Write(listJSON)
 
 }
 
