@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	common "../../Music/Common"
+	common "../../msc/Common"
 )
 
 //RetrieveSong retrieve song with given id

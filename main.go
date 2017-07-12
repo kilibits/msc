@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	api "../Music/Controllers"
+	api "../msc/Controllers"
 	mux "github.com/gorilla/mux"
 )
 

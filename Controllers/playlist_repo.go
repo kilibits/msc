@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	common "../../Music/Common"
+	common "../../msc/Common"
 )
 
 type mediaPlayList struct {
