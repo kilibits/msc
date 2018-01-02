@@ -11,21 +11,23 @@ type mediaPlayList struct {
 	URL string
 }
 
+//RetrievePlaylist return playlist with given id
 func RetrievePlaylist(id string) []string {
 	return []string{"song1"}
 }
 
+//RetrieveSongList return songs with given prefix
 func RetrieveSongList(prefix string) []byte {
-
-	client := common.GetSharedClient()
-	bucketName := common.GetBucketName()
+	client := common.GetClient()
+	bucketName := client.Bucket
+	minioClient := client.MinioClient
 	isRecursive := true
 	doneCh := make(chan struct{})
 	defer close(doneCh)
 
 	var playListEntries []mediaPlayList
 
-	for objectInfo := range client.ListObjects(bucketName, prefix, isRecursive, doneCh) {
+	for objectInfo := range minioClient.ListObjects(bucketName, prefix, isRecursive, doneCh) {
 		if objectInfo.Err != nil {
 			return nil
 		}

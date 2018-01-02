@@ -12,10 +12,11 @@ import (
 //RetrieveSong retrieve song with given id
 func RetrieveSong(id string) *url.URL {
 
-	client := common.GetSharedClient()
-	bucketName := common.GetBucketName()
+	client := common.GetClient()
+	bucketName := client.Bucket
+	minioClient := client.MinioClient
 
-	found, err := client.BucketExists(bucketName)
+	found, err := minioClient.BucketExists(bucketName)
 
 	if err != nil {
 		return nil
@@ -23,7 +24,7 @@ func RetrieveSong(id string) *url.URL {
 
 	if found {
 
-		presignedURL, err := client.PresignedGetObject(bucketName, id, 1000*time.Second, nil)
+		presignedURL, err := minioClient.PresignedGetObject(bucketName, id, 1000*time.Second, nil)
 
 		if err != nil {
 
@@ -35,10 +36,11 @@ func RetrieveSong(id string) *url.URL {
 }
 
 func UploadSong(file *os.File) bool {
-	client := common.GetSharedClient()
-	bucketName := common.GetBucketName()
+	client := common.GetClient()
+	bucketName := client.Bucket
+	minioClient := client.MinioClient
 
-	found, err := client.BucketExists(bucketName)
+	found, err := minioClient.BucketExists(bucketName)
 
 	if err != nil {
 		return false
@@ -46,7 +48,7 @@ func UploadSong(file *os.File) bool {
 
 	if found {
 
-		_, err := client.PutObject(bucketName, "object_name", file, "application/octet-stream")
+		_, err := minioClient.PutObject(bucketName, "object_name", file, "application/octet-stream")
 		if err != nil {
 			fmt.Println(err)
 			return false

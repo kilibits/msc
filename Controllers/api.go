@@ -23,7 +23,7 @@ func GetSong(res http.ResponseWriter, req *http.Request) {
 	res.Write([]byte(streamingURL.String()))
 }
 
-//GetSongList retrieve playlist by id
+//GetSongsList retrieve playlist by id
 func GetSongsList(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	prefix := vars["prefix"]
