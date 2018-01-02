@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	api "./Controllers"
+	api "./api"
 
 	mux "github.com/gorilla/mux"
 )

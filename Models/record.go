@@ -1,4 +1,4 @@
-package Models
+package models
 
 // Record - holds song details
 type Record struct {

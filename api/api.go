@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	utils "../utils"
 	"github.com/gorilla/mux"
 )
 
@@ -12,7 +13,7 @@ import (
 func GetSong(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	songID := vars["song_id"]
-	streamingURL := RetrieveSong(songID)
+	streamingURL := utils.MscClient.RetrieveSong(songID)
 
 	if streamingURL == nil {
 		http.Error(res, "Error message", http.StatusInternalServerError)
@@ -28,7 +29,7 @@ func GetSongsList(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	prefix := vars["prefix"]
 
-	listJSON := RetrieveSongList(prefix)
+	listJSON := utils.MscClient.RetrieveSongList(prefix)
 
 	if listJSON == nil {
 		http.Error(res, "Error message", http.StatusInternalServerError)
@@ -53,5 +54,5 @@ func PostSong(res http.ResponseWriter, req *http.Request) {
 
 	defer file.Close()
 
-	UploadSong(file)
+	utils.MscClient.UploadSong(file)
 }

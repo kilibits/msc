@@ -1,18 +1,14 @@
-package api
+package utils
 
 import (
 	"fmt"
 	"net/url"
 	"os"
 	"time"
-
-	common "../../msc/Common"
 )
 
 //RetrieveSong retrieve song with given id
-func RetrieveSong(id string) *url.URL {
-
-	client := common.GetClient()
+func (client *Client) RetrieveSong(id string) *url.URL {
 	bucketName := client.Bucket
 	minioClient := client.MinioClient
 
@@ -35,8 +31,8 @@ func RetrieveSong(id string) *url.URL {
 	return nil
 }
 
-func UploadSong(file *os.File) bool {
-	client := common.GetClient()
+//UploadSong upload song to bucket
+func (client *Client) UploadSong(file *os.File) bool {
 	bucketName := client.Bucket
 	minioClient := client.MinioClient
 

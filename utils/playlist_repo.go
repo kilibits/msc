@@ -1,9 +1,7 @@
-package api
+package utils
 
 import (
 	"encoding/json"
-
-	common "../Common"
 )
 
 type mediaPlayList struct {
@@ -17,8 +15,7 @@ func RetrievePlaylist(id string) []string {
 }
 
 //RetrieveSongList return songs with given prefix
-func RetrieveSongList(prefix string) []byte {
-	client := common.GetClient()
+func (client *Client) RetrieveSongList(prefix string) []byte {
 	bucketName := client.Bucket
 	minioClient := client.MinioClient
 	isRecursive := true

@@ -1,4 +1,4 @@
-package common
+package utils
 
 import (
 	"fmt"
@@ -12,7 +12,8 @@ type Client struct {
 	Bucket      string
 }
 
-var client *Client
+//MscClient minio client
+var MscClient *Client
 
 func init() {
 
@@ -29,13 +30,8 @@ func init() {
 		}
 	}
 
-	client = &Client{
+	MscClient = &Client{
 		Bucket:      bucketName,
 		MinioClient: minioClient,
 	}
-}
-
-//GetClient get client to access buckets
-func GetClient() *Client {
-	return client
 }
