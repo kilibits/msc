@@ -8,13 +8,3 @@ type PlayList struct {
 	Songs       []Song
 	Creator     string
 }
-
-//AddSongToPlaylist add new song to playlist
-func (playlist *PlayList) AddSongToPlaylist(songID string) {
-
-}
-
-//RemoveFromPlaylist remove song from playlist
-func (playlist *PlayList) RemoveFromPlaylist(songID string) {
-
-}

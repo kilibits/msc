@@ -38,3 +38,13 @@ func (client *Client) RetrieveSongList(prefix string) []byte {
 
 	return playListEntriesJSON
 }
+
+//AddSongToPlaylist add new song to playlist
+func (client *Client) AddSongToPlaylist(playlistID, songID string) {
+
+}
+
+//RemoveFromPlaylist remove song from playlist
+func (client *Client) RemoveFromPlaylist(playlistID, songID string) {
+
+}
