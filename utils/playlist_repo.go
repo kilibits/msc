@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"io/ioutil"
 
 	models "../models"
 )
@@ -37,6 +38,34 @@ func (client *Client) RetrieveSongList(prefix string) []byte {
 	}
 
 	return playListEntriesJSON
+}
+
+//GetPlaylist return playlist with given id
+func (client *Client) GetPlaylist(playlistID string) []byte {
+	bucketName := client.Bucket
+	minioClient := client.MinioClient
+
+	playlist, err := minioClient.GetObject(bucketName, playlistID)
+
+	if err != nil {
+		return nil
+	}
+
+	defer playlist.Close()
+
+	res, err := ioutil.ReadAll(playlist)
+
+	if err != nil {
+		return nil
+	}
+
+	playlistJSON, err := json.Marshal(res)
+
+	if err != nil {
+		return nil
+	}
+
+	return playlistJSON
 }
 
 //AddSongToPlaylist add new song to playlist
