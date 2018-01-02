@@ -1,9 +1,11 @@
 package models
 
-// Record - holds song details
-type Record struct {
-	artist string
-	year   int16
-	title  string
-	album  string
+// Song - holds song details
+type Song struct {
+	Artist       string
+	Year         int16
+	Title        string
+	Album        string
+	StreamingURL string
+	Label        string
 }

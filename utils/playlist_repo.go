@@ -2,12 +2,9 @@ package utils
 
 import (
 	"encoding/json"
-)
 
-type mediaPlayList struct {
-	Key string
-	URL string
-}
+	models "../models"
+)
 
 //RetrievePlaylist return playlist with given id
 func RetrievePlaylist(id string) []string {
@@ -22,14 +19,14 @@ func (client *Client) RetrieveSongList(prefix string) []byte {
 	doneCh := make(chan struct{})
 	defer close(doneCh)
 
-	var playListEntries []mediaPlayList
+	var playListEntries []models.PlayList
 
 	for objectInfo := range minioClient.ListObjects(bucketName, prefix, isRecursive, doneCh) {
 		if objectInfo.Err != nil {
 			return nil
 		}
 		objectName := objectInfo.Key
-		playListEntry := mediaPlayList{
+		playListEntry := models.PlayList{
 			Key: objectName,
 		}
 		playListEntries = append(playListEntries, playListEntry)
@@ -40,5 +37,4 @@ func (client *Client) RetrieveSongList(prefix string) []byte {
 	}
 
 	return playListEntriesJSON
-
 }
