@@ -13,7 +13,7 @@ import (
 func GetSong(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	songID := vars["song_id"]
-	streamingURL := utils.MscClient.RetrieveSong(songID)
+	streamingURL := utils.MscClient.RetrieveSongStreamingURL(songID)
 
 	if streamingURL == nil {
 		http.Error(res, "Error message", http.StatusInternalServerError)

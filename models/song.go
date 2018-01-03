@@ -1,6 +1,6 @@
 package models
 
-// Song - holds song details
+// Song - holds song metadata
 type Song struct {
 	Artist       string
 	Year         uint16

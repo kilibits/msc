@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-//RetrieveSong retrieve song with given id
-func (client *Client) RetrieveSong(id string) *url.URL {
+//RetrieveSongStreamingURL retrieve song with given id
+func (client *Client) RetrieveSongStreamingURL(id string) *url.URL {
 	bucketName := client.Bucket
 	minioClient := client.MinioClient
 
@@ -27,6 +27,12 @@ func (client *Client) RetrieveSong(id string) *url.URL {
 		}
 		return presignedURL
 	}
+
+	return nil
+}
+
+//RetrieveSongMetaData - retrieve metadata for song with given id
+func (client *Client) RetrieveSongMetaData(id string) []byte {
 
 	return nil
 }
